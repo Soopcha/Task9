@@ -45,7 +45,7 @@ public class FrameMain extends JFrame {
         // моё JTableUtils.initJTableForArray(tableInput, 40, true, true, true, true);
         // my  JTableUtils.initJTableForArray(tableOutput, 40, true, true, true, true);
         //tableOutput.setEnabled(false);
-        tableInput.setRowHeight(25);
+        // моё tableInput.setRowHeight(25);
         // my tableOutput.setRowHeight(25);
 
         fileChooserOpen = new JFileChooser();
@@ -91,18 +91,7 @@ public class FrameMain extends JFrame {
                 }
             }
         });
-        buttonRandomInput.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    int[][] matrix = ArrayUtils.createRandomIntMatrix(
-                            tableInput.getRowCount(), tableInput.getColumnCount(), 100);
-                    JTableUtils.writeArrayToJTable(tableInput, matrix);
-                } catch (Exception e) {
-                    SwingUtils.showErrorMessageBox(e);
-                }
-            }
-        });
+
         buttonSaveInputInfoFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -120,18 +109,7 @@ public class FrameMain extends JFrame {
                 }
             }
         });
-        buttonReverseRows.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                try {
-                    int[][] matrix = JTableUtils.readIntMatrixFromJTable(tableInput);
-                    Task.reverseRows(matrix);
-                    JTableUtils.writeArrayToJTable(tableOutput, matrix);
-                } catch (Exception e) {
-                    SwingUtils.showErrorMessageBox(e);
-                }
-            }
-        });
+
         /*
         buttonChekForPosledovatelnost.addActionListener(new ActionListener() {
             @Override
