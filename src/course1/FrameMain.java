@@ -14,6 +14,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FrameMain extends JFrame {
@@ -25,15 +27,27 @@ public class FrameMain extends JFrame {
     private JButton buttonReverseRows;
     private JButton buttonSaveOutputIntoFile;
     private JTable tableOutput;
-    private JButton buttonChekForPosledovatelnost;
+    private JButton buttonChekForVoprosy;
     private JTextField textFieldAnswer1;
     private JTextField textFieldAnswer2;
-    private JTextField textFieldBigText;
+    private JTextField inputTextField;
+    private JPanel panelka;
 
     private JFileChooser fileChooserOpen;
     private JFileChooser fileChooserSave;
     private JMenuBar menuBarMain;
     private JMenu menuLookAndFeel;
+
+    /*static class MyComponent extends JComponent {
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g;
+            Image image = new ImageIcon("img/123.png").getImage();
+            g2.drawImage(image, 250, 50, null);
+        }
+    }
+
+     */
+
 
 
     public FrameMain() {
@@ -74,7 +88,6 @@ public class FrameMain extends JFrame {
         });
         */
 
-
         this.pack();
 
 
@@ -83,8 +96,8 @@ public class FrameMain extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     if (fileChooserOpen.showOpenDialog(panelMain) == JFileChooser.APPROVE_OPTION) {
-                        int[][] arr = ArrayUtils.readIntArray2FromFile(fileChooserOpen.getSelectedFile().getPath());
-                        JTableUtils.writeArrayToJTable(tableInput, arr);
+                        String s=Task.readStringFromFile(fileChooserOpen.getSelectedFile().getPath());
+                        inputTextField.setText(s);
                     }
                 } catch (Exception e) {
                     SwingUtils.showErrorMessageBox(e);
@@ -104,6 +117,22 @@ public class FrameMain extends JFrame {
                         }
                         ArrayUtils.writeArrayToFile(file, matrix);
                     }
+                } catch (Exception e) {
+                    SwingUtils.showErrorMessageBox(e);
+                }
+            }
+        });
+        buttonChekForVoprosy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    String s=inputTextField.getText();
+                    List<String> listik= new ArrayList<>();
+                     listik = Task.listOfAllInterrogativeSentences(s);
+                    for (String c : listik) {
+                        textFieldAnswer2.setText(c);
+                    }
+
                 } catch (Exception e) {
                     SwingUtils.showErrorMessageBox(e);
                 }
@@ -195,9 +224,9 @@ public class FrameMain extends JFrame {
         panel2.add(buttonReverseRows, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer2 = new Spacer();
         panel2.add(spacer2, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
-        buttonChekForPosledovatelnost = new JButton();
-        buttonChekForPosledovatelnost.setText("Проверить последовательность");
-        panel2.add(buttonChekForPosledovatelnost, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        buttonChekForVoprosy = new JButton();
+        buttonChekForVoprosy.setText("Проверить последовательность");
+        panel2.add(buttonChekForVoprosy, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panelMain.add(panel3, new GridConstraints(4, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));

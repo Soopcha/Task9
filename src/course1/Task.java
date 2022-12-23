@@ -1,46 +1,35 @@
 package course1;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 
 public class Task {
-    public static void Process(int[][] arr2) {
-        for (int r = 0; r < arr2.length; r++) {
-            for (int c = 0; c < arr2[r].length; c++) {
-                arr2[r][c]++;
-            }
-        }
+
+    public static String readStringFromFile(String filename) throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File(filename));
+        String s = scanner.nextLine();
+        scanner.close();
+        return s;
     }
 
-    public static int[][] Process2(int[][] arr2) {
-        int[][] res = new int[2][2];
-        for (int r = 0; r < Math.min(arr2.length, 2); r++) {
-            for (int c = 0; c < Math.min(arr2[0].length, 2); c++) {
-                res[r][c] = arr2[r][c];
-            }
-        }
-        return res;
-    }
-
-
-    public static void reverseRows(int[][] arr2) {
-        for (int r = 0; r < arr2.length / 2; r++) {
-            int[] temp = arr2[r];
-            arr2[r] = arr2[arr2.length - r - 1];
-            arr2[arr2.length - r - 1] = temp;
+    public static void main(String[] args) {
+        List<String> list= new ArrayList<>();
+        list = listOfAllInterrogativeSentences("В лингвистике термин «текст» используется в широком значении, включая и образцы устной речи. Восприятие текста изучается в рамках лингвистики текста и психолингвистики. Так, например, И. Р. Гальперин определяет текст следующим образом: «Это письменное сообщение, объективированное в виде письменного документа, состоящее из ряда высказываний, объединённых разными типами лексической, грамматической и");
+        for (String s : list) {
+            System.out.println(s);
         }
     }
+    public static List<String> listOfAllInterrogativeSentences (String str){
+        List<String> list= new ArrayList<>();
 
-    public static void reverseColumns(int[][] arr2) {
-        int colsCount = arr2[0].length;
-        for (int c = 0; c < colsCount / 2; c++) {
-            swapColumns(arr2,  c, colsCount - c - 1);
-        }
-    }
+        //list = List.of(str.split("!")); // \\ нужны для того, чтобы джава не думала что мы команду какуе-то прописать хотим а просто символ
+        list = List.of(str.split("[.!?]")); // .of вместо задачи new и  add те сократили
+        // в [] мы сунули сразу несколько разделителей
 
-    public static void swapColumns(int[][] arr2, int c1, int c2) {
-        for (int[] row : arr2) {
-            int temp = row[c1];
-            row[c1] = row[c2];
-            row[c2] = temp;
-        }
+        return list;
     }
 }
+
