@@ -1,6 +1,5 @@
 package course1;
 
-import ru.vsu.cs.Main;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -15,7 +14,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.text.ParseException;
 
 
 public class FrameMain extends JFrame {
@@ -30,6 +28,7 @@ public class FrameMain extends JFrame {
     private JButton buttonChekForPosledovatelnost;
     private JTextField textFieldAnswer1;
     private JTextField textFieldAnswer2;
+    private JTextField textFieldBigText;
 
     private JFileChooser fileChooserOpen;
     private JFileChooser fileChooserSave;
@@ -43,7 +42,7 @@ public class FrameMain extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
 
-        JTableUtils.initJTableForArray(tableInput, 40, true, true, true, true);
+        // моё JTableUtils.initJTableForArray(tableInput, 40, true, true, true, true);
         // my  JTableUtils.initJTableForArray(tableOutput, 40, true, true, true, true);
         //tableOutput.setEnabled(false);
         tableInput.setRowHeight(25);
@@ -69,10 +68,12 @@ public class FrameMain extends JFrame {
         menuBarMain.add(menuLookAndFeel);
         SwingUtils.initLookAndFeelMenu(menuLookAndFeel);
 
-        JTableUtils.writeArrayToJTable(tableInput, new int[][]{
+       /* // моё JTableUtils.writeArrayToJTable(tableInput, new int[][]{
                 {0, 1, 2, 3, 4},
                 {5, 6, 7, 8, 9}
         });
+        */
+
 
         this.pack();
 
@@ -131,12 +132,13 @@ public class FrameMain extends JFrame {
                 }
             }
         });
+        /*
         buttonChekForPosledovatelnost.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     int[][] matrix = JTableUtils.readIntMatrixFromJTable(tableInput);
-                    if (Main.checkingForAnOrderedSequence(matrix)) {       //сюда вставляй приколы
+                    if (Main.listOfAllInterrogativeSentences("потом")) {       //сюда вставляй приколы
                         textFieldAnswer2.setText("Образуют упорядоченную последовательность");
                     } else {
                         textFieldAnswer2.setText(" Не образуют упорядоченную последовательность");
@@ -146,6 +148,11 @@ public class FrameMain extends JFrame {
                 }
             }
         });
+        */
+
+
+
+
         /*textFieldAnswer2.addActionListener(new ActionListener() {   // Так, ну вот тут я сама написала, мб что-то не верно
                                                                         //Но почему-то без этого комента не работает
             @Override
